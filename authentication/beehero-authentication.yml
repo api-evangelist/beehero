@@ -1,0 +1,52 @@
+generated: '2026-08-02'
+method: searched
+source: openapi/beehero-openapi-original.yml
+docs: https://docs.beehero.io/
+summary:
+  types:
+  - http
+  api_key_in: []
+  oauth2_flows: []
+  style: password login exchanged for a bearer token
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Please enter access_token (taken from login response body)
+  sources:
+  - openapi/beehero-openapi-original.yml
+flow:
+  step_1:
+    operation: login
+    request: POST https://backend.beehero.io/external/login
+    body: '{"email": "<account email>", "password": "<account password>"}'
+    response: '200 with {"access_token": "..."} in the body and a Set-Cookie: access_token_cookie=<token> header'
+    failure: 404 "Login credentials do not match"
+  step_2:
+    header: 'Authorization: Bearer <access_token>'
+    applies_to: every operation other than login
+    failures:
+    - '401 Login required, user is not logged in — no token presented'
+    - '403 Invalid Token — token expired, malformed, or not valid for the account'
+  docs_note: >-
+    The Swagger UI at docs.beehero.io instructs: "To use BeeHero API, it is necessary to first log in
+    and then copy and enter the given access_token into Authorize button."
+token:
+  lifetime: undocumented
+  refresh: undocumented
+  revocation: undocumented
+  rotation: undocumented
+mcp_server:
+  package: https://www.npmjs.com/package/beehero-mcp
+  style: same password-login pattern, performed by the server on the operator's behalf
+  login_path: /admin/login
+  credentials: API_USER_EMAIL + API_PASSWORD environment variables (API_PASSWORD marked sensitive)
+  token_header: 'Authorization: Bearer <access_token>'
+  see_also: mcp/beehero-mcp.yml
+not_supported:
+- oauth2 (no oauth2 securityScheme; /.well-known/oauth-authorization-server 404 on every host)
+- openIdConnect (no /.well-known/openid-configuration on any host)
+- apiKey
+- mutualTLS
+- scoped authorization (no scopes are declared or documented — scopes/ is intentionally absent)

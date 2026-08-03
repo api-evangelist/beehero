@@ -1,0 +1,200 @@
+generated: '2026-08-02'
+method: searched
+status: published
+source: https://www.npmjs.com/package/beehero-mcp
+harvested_from:
+- https://registry.npmjs.org/beehero-mcp
+- 'package tarball beehero-mcp@1.3.8: manifest.json, src/Server.ts, src/Tools.ts, src/ApiClient.ts'
+server:
+  name: beehero
+  display_name: BeeHero
+  server_name: beehero-mcp-server
+  transport: stdio
+  version: 1.3.8
+  command: node
+  args:
+  - dist/server.js
+  package: https://www.npmjs.com/package/beehero-mcp
+  install:
+  - npm install -g beehero-mcp
+  - 'MCPB bundle shipped in the tarball: beehero.1.3.8.mcpb'
+  runtime: node
+  license: ISC
+  author: BeeHero <support@beehero.io>
+  homepage: https://beehero.io
+  hosted_url: null
+  hosted_note: >-
+    No remote/hosted MCP endpoint is published. The server runs locally over stdio and calls a
+    BeeHero API server supplied by the operator.
+  instructions: >-
+    Access Beehero API to get beehero users, hives, groups, gateways, sensors, farms, yards, orchards,
+    markers, and more.
+authentication:
+  style: email + password login, exchanged for a bearer access_token
+  login_path: /admin/login
+  token_header: 'Authorization: Bearer <access_token>'
+  client_header: 'X-MCP-Client: beehero mcp'
+  user_config:
+  - name: API_USER_EMAIL
+    type: string
+    required: true
+    sensitive: false
+    description: BeeHero user email
+  - name: API_PASSWORD
+    type: string
+    required: true
+    sensitive: true
+    description: BeeHero user password
+  - name: API_SERVER_URL
+    type: string
+    required: true
+    sensitive: false
+    description: BeeHero API server URL (operator supplied)
+tools:
+- name: getBeekeeperHivesAndFramesByGroupId
+  description: Get beekeeper hives and frames by group ID
+  input_schema:
+    group_id: string (required)
+  backing_request: GET {API_SERVER_URL}/admin/beekeeper_hives_and_frames/by_group_id/{group_id}
+- name: getExperimentsByName
+  description: Get experiments by name
+  input_schema:
+    name: string (required)
+  backing_request: GET {API_SERVER_URL}/v2/admin/experiments?name={name}
+- name: getExperimentPointsByExperimentId
+  description: Get experiment points by experiment ID
+  input_schema:
+    experiment_id: string (required)
+  backing_request: GET {API_SERVER_URL}/v2/admin/experiments/{experiment_id}/experiment_points
+- name: getExperimentSerializationsByExperimentPointId
+  description: Get experiment serializations by experiment point ID
+  input_schema:
+    experiment_point_id: string (required)
+  backing_request: >-
+    GET {API_SERVER_URL}/v2/admin/experiment_points/{experiment_point_id}/experiment_serializations
+- name: getExperimentSerializationByFileName
+  description: Get experiment serialization by file name
+  input_schema:
+    file_name: string (required)
+  backing_request: GET {API_SERVER_URL}/v2/admin/experiment_serializations/{file_name}
+- name: getInspectionsByGroupId
+  description: Get inspections by group ID
+  input_schema:
+    group_id: string (required)
+  backing_request: GET {API_SERVER_URL}/v2/admin/inspections?group_id={group_id}
+- name: getEntity
+  description: 'Get a single entity by ID. Supports: user, experiment, hardware-order, inspection, orchard'
+  input_schema:
+    entityType: string (required) - the entity type
+    entityId: string (required) - the ID of the entity to fetch
+  backing_request: GET {API_SERVER_URL}{entity base path}/{entityId}
+  entity_paths:
+    user: /v2/admin/users
+    experiment: /admin/experiments
+    hardware-order: /admin/hardware_orders
+    inspection: /admin/inspections
+    orchard: /v2/admin/orchards
+- name: getEntities
+  description: Get data for any entity type, with an optional BeeHero filter and limit.
+  input_schema:
+    entity: string (required) - the entity type to retrieve
+    filter: string (optional) - a BeeHero filter string
+    limit: number (optional, default 100)
+  backing_request: GET {API_SERVER_URL}{entity base path}?filter={filter}&limit={limit}
+  entity_paths:
+    users: /v2/admin/users
+    sensors: /v2/admin/sensors
+    gateways: /v2/admin/gateways
+    yards: /v2/admin/yards
+    farms: /v2/admin/farms
+    groups: /v2/admin/groups
+    orchards: /v2/admin/orchards
+    orchard-markers: /v2/admin/orchard-markers
+    seasons: /v2/admin/seasonal-activities
+    sensor-daily-statuses: /admin/sensor_daily_statuses
+    hardware-shipments: /v2/admin/hardware-shipments
+    firmware-versions: /v2/admin/firmware-versions
+    pollination-tasks: /v2/admin/pollination-tasks
+    crop-types: /v2/admin/crop-types
+    in-field-serializations: /v2/admin/in-field-serializations
+    pip-serializations: /v2/admin/in-field-serializations
+    serializations: /v2/admin/in-field-serializations
+    hourly-pip-sensor-updates: /v2/admin/hourly-pip-sensor-updates
+    pip-updates: /v2/admin/hourly-pip-sensor-updates
+    orchard-weather-inspections: /v2/admin/orchard-weather-inspections
+    weather-inspections: /v2/admin/orchard-weather-inspections
+    hourly-orchard-marker-updates: /growers/hourly-orchard-marker-updates
+    orchard-marker-updates: /growers/hourly-orchard-marker-updates
+- name: getAvailableEntities
+  description: >-
+    Get a list of all available entity types that can be used with getEntities, getEntity, and
+    getRelations tools.
+  input_schema: {}
+  backing_request: null
+  binding: client-side (static entity registry)
+- name: getBeeheroFilter
+  description: >-
+    Create or alter a BeeHero filter. Returns a filter string in the format
+    [('att', 'op', 'string value'), ('att', 'number value'), ...].
+  input_schema:
+    filter: string (optional) - existing filter, or empty string for a new filter
+    attributes: object (required) - attribute names to values or [operator, value] arrays
+  operators:
+  - in
+  - eq
+  - not
+  - gte
+  - lte
+  - or
+  - gt
+  - lt
+  - like
+  - notlike
+  - notin
+  - between
+  backing_request: null
+  binding: client-side (filter builder)
+- name: getRelations
+  description: >-
+    Find the relationship path between two entity types. Returns the path of relationships and
+    instructions on how to navigate from one entity type to another using filters.
+  input_schema:
+    fromEntity: string (required)
+    toEntity: string (required)
+  backing_request: null
+  binding: client-side (breadth-first search over the shipped relationship graph)
+prompts:
+- name: get-entities
+  arguments:
+  - entityType
+- name: get-relations
+  arguments:
+  - fromEntity
+  - toEntity
+- name: get-available-entities
+  arguments: []
+- name: entity-relationships-hierarchy
+  arguments: []
+- name: entity-relationships-group
+  arguments: []
+- name: entity-relationships-farm-orchard
+  arguments: []
+- name: entity-relationships-devices
+  arguments: []
+- name: entity-relationships-inspections
+  arguments: []
+- name: entity-relationships-experiments
+  arguments: []
+- name: entity-relationships-seasons
+  arguments: []
+- name: entity-relationships-hardware
+  arguments: []
+x-evidence:
+  fetched: '2026-08-02'
+  npm_registry: https://registry.npmjs.org/beehero-mcp
+  latest_version: 1.3.8
+  published: '2025-11-03T10:20:04.587Z'
+  tools_list_probe: >-
+    Not applicable — stdio transport only, no hosted endpoint to POST tools/list against. Tool names,
+    descriptions and input schemas above are read verbatim from the published manifest.json and
+    src/Server.ts of beehero-mcp@1.3.8.

@@ -1,0 +1,73 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the BeeHero API
+  version: 1.0.0
+extends: openapi/beehero-openapi-original.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: >-
+  Derived from openapi/beehero-openapi-original.yml plus BeeHero's published site and the
+  beehero-mcp package. Applied as an overlay so the harvested spec is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-02'
+    x-apievangelist-source: https://docs.beehero.io/swagger.json
+    x-provider: BeeHero
+    x-provider-site: https://www.beehero.io/
+    termsOfService: https://www.beehero.io/legals
+- target: $.info.license
+  update:
+    name: Proprietary
+    url: https://www.beehero.io/legals
+- target: $.servers
+  update:
+  - url: https://backend.beehero.io/external
+    description: Production
+- target: $.tags
+  update:
+  - name: Auth
+    description: Login to BeeHero API
+    x-display-name: Authentication
+  - name: Audio
+    description: Get audio files from sensors
+    x-display-name: In-hive audio
+  - name: Sensors
+    description: Get sensors sample data
+    x-display-name: Sensors
+  - name: Gateways
+    description: Get gateways sample data
+    x-display-name: Gateways
+- target: $.paths./login.post
+  update:
+    x-apievangelist-note: >-
+      Returns access_token in the response body and in a set-cookie header. Send it as
+      Authorization: Bearer <access_token> on every other operation.
+    x-idempotent: false
+- target: $.paths./sensors/samples.post
+  update:
+    x-apievangelist-note: >-
+      Read-only despite the POST method — the request body carries the mac[] list and the from/to
+      date range. Safe for agents to retry.
+    x-agentic-action-class: read
+- target: $.paths./gateways/add_skip_remote.put
+  update:
+    x-apievangelist-note: >-
+      Mutates gateway configuration in the field. Treat as a write with real-world consequence.
+    x-agentic-action-class: acting
+- target: $.paths./gateways/remove_skip_remote.put
+  update:
+    x-agentic-action-class: acting
+- target: $.paths./gateways/movement_interrupt.put
+  update:
+    x-agentic-action-class: acting
+- target: $.paths./gateways/rssi_configuration.put
+  update:
+    x-agentic-action-class: acting
+- target: $.paths./sensors/update_sensor_name.put
+  update:
+    x-agentic-action-class: acting
+- target: $.components.securitySchemes.bearerAuth
+  update:
+    x-token-source: POST /login
+    x-token-lifetime: undocumented

@@ -1,0 +1,59 @@
+generated: '2026-08-02'
+method: searched
+source:
+- https://docs.beehero.io/
+- openapi/beehero-openapi-original.yml
+- https://registry.npmjs.org/beehero-mcp
+searched_on: '2026-08-02'
+versioning:
+  scheme: none
+  current: '1.0.0'
+  current_source: OpenAPI info.version
+  server_path: /external
+  docs: https://docs.beehero.io/
+  note: >-
+    The public API carries no version in the path, host or headers. The undocumented admin surface
+    that the official MCP server calls is split across /admin and /v2/admin prefixes.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: No deprecation or sunset policy is published, and no operation in the spec is marked deprecated.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probed:
+  - {host: status.beehero.io, result: no DNS}
+  - {host: trust.beehero.io, result: no DNS}
+  note: No status page was found; no StatusPage pointer is wired in apis.yml.
+changelog:
+  url: null
+  note: >-
+    BeeHero publishes no API changelog or release notes. The only dated release history for a
+    first-party artifact is the npm publish history of the beehero-mcp package, recorded below and in
+    packages/beehero-packages.yml. That is a package history, not an API changelog, so no ChangeLog
+    pointer is wired in apis.yml.
+  package_releases:
+  - {version: 1.3.8, date: '2025-11-03'}
+  - {version: 1.3.7, date: '2025-11-02'}
+  - {version: 1.3.4, date: '2025-11-02'}
+  - {version: 1.3.0, date: '2025-10-29'}
+  - {version: 1.2.9, date: '2025-06-04'}
+  - {version: 1.2.6, date: '2025-05-24'}
+  - {version: first published, date: '2025-05-22'}
+  package_versions_total: 18
+support:
+  api_contact: yuval@beehero.io
+  api_contact_source: OpenAPI info.contact.email
+  mcp_contact: support@beehero.io
+  mcp_contact_source: beehero-mcp manifest.json author.email
+  customer_success: customersuccess@beehero.io
+  contact_page: https://www.beehero.io/contact-us
+gaps:
+- No status page.
+- No deprecation or sunset policy.
+- No API changelog or release notes.
+- No published SLA or uptime target.

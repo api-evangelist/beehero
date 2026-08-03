@@ -1,0 +1,91 @@
+generated: '2026-08-02'
+method: derived
+source:
+- mcp/beehero-mcp.yml
+- openapi/beehero-openapi-original.yml
+summary: >-
+  BeeHero's two machine-readable surfaces do not overlap. The public OpenAPI documents the
+  /external device-data surface on backend.beehero.io (login, sensor samples, in-hive audio samples,
+  gateway configuration). The official MCP server calls a different, undocumented admin surface
+  (/admin/* and /v2/admin/*) covering platform entities — groups, farms, orchards, yards, gateways,
+  sensors, inspections, experiments, hardware. Not one MCP tool binds to a published OpenAPI
+  operationId, so every tool lands in mcp_only[] and every REST operation lands in rest_only[].
+  This is a real surface divergence, recorded rather than papered over.
+surfaces:
+  openapi:
+    file: openapi/beehero-openapi-original.yml
+    source: https://docs.beehero.io/swagger.json
+    server: https://backend.beehero.io/external
+    operations: 12
+    gated: false
+  mcp:
+    file: mcp/beehero-mcp.yml
+    package: https://www.npmjs.com/package/beehero-mcp
+    transport: stdio
+    endpoint: null
+    gated: >-
+      No hosted endpoint; tools/list cannot be probed anonymously. Tool names, descriptions and
+      input schemas are read verbatim from the published package manifest and source.
+    backing_paths: /admin/*, /v2/admin/*, /growers/* on an operator-supplied API_SERVER_URL
+  graphql:
+    endpoint: null
+    present: false
+crosswalk: []
+mcp_only:
+- tool: getBeekeeperHivesAndFramesByGroupId
+  reason: Backed by /admin/beekeeper_hives_and_frames/by_group_id/{group_id}; no public OpenAPI operation.
+- tool: getExperimentsByName
+  reason: Backed by /v2/admin/experiments; the admin surface is not in the published OpenAPI.
+- tool: getExperimentPointsByExperimentId
+  reason: Backed by /v2/admin/experiments/{id}/experiment_points; not in the published OpenAPI.
+- tool: getExperimentSerializationsByExperimentPointId
+  reason: Backed by /v2/admin/experiment_points/{id}/experiment_serializations; not in the published OpenAPI.
+- tool: getExperimentSerializationByFileName
+  reason: Backed by /v2/admin/experiment_serializations/{file_name}; not in the published OpenAPI.
+- tool: getInspectionsByGroupId
+  reason: Backed by /v2/admin/inspections; not in the published OpenAPI.
+- tool: getEntity
+  reason: >-
+    Dispatches to five admin paths (users, experiments, hardware_orders, inspections, orchards);
+    none are in the published OpenAPI.
+- tool: getEntities
+  reason: >-
+    Dispatches to 23 admin/grower entity collections with a filter+limit query; none are in the
+    published OpenAPI.
+- tool: getAvailableEntities
+  reason: Client-side composite — returns the server's static entity registry, no HTTP call.
+- tool: getBeeheroFilter
+  reason: Client-side composite — builds a BeeHero filter expression string, no HTTP call.
+- tool: getRelations
+  reason: Client-side composite — breadth-first search over the shipped entity relationship graph, no HTTP call.
+rest_only:
+- capability: Authentication
+  operations:
+  - login
+  note: >-
+    The MCP server performs its own login against /admin/login, a different path from the public
+    /external/login operation.
+- capability: In-hive audio
+  operations:
+  - get_audio_sample_by_mac_address
+- capability: Sensor data
+  operations:
+  - get_sensors_sample_by_mac_address
+  - get_sensors_connected_by_gateway_mac
+  - update_sensor_name
+- capability: Gateway data and configuration
+  operations:
+  - get_gateways_sample_by_mac_address
+  - get_gateway_mac_address
+  - get_gateway_config_status
+  - add_skip_remote_to_gateway_config
+  - remove_skip_remote_from_gateway_config
+  - movement_interrupt_gateway_config
+  - rssi_configuration
+coverage:
+  tools_named: 11
+  tools_bound_to_rest: 0
+  mcp_only: 11
+  rest_operations_total: 12
+  rest_operations_with_a_tool: 0
+  overlap: none

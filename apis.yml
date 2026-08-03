@@ -1,23 +1,127 @@
 aid: beehero
 name: BeeHero
-description: 'BeeHero is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  BeeHero is a precision-pollination company that instruments commercial beehives and crop fields with
+  low-cost IoT sensors, then turns the resulting acoustic, temperature, humidity and bee-activity data
+  into pollination analytics for growers, beekeepers and agribusinesses. Founded in 2017 by Omer Davidi,
+  Itai Kanot and Yuval Regev, with operations in California and Tel Aviv, it runs an in-hive
+  Precision-Pollination-as-a-Service offering and an in-field Pollination Insight Platform (PIP) across
+  crops including almonds, apples, avocados, blueberries, canola, cherries, carrot and onion seed,
+  cucurbits and macadamia. BeeHero exposes a bearer-token REST API at backend.beehero.io/external —
+  documented with Swagger UI at docs.beehero.io — for sensor samples, in-hive audio samples and gateway
+  configuration, and publishes an official BeeHero MCP server to npm for agent access to its platform
+  entities (groups, farms, orchards, yards, gateways, sensors, inspections, experiments).
+image: https://cdn.prod.website-files.com/66e1eedeb9c7b4bebe0ed8f2/66e1fc3a9a94b85ef4c2e341_BeeHero_Logo_Horizontal_Black.png
 url: https://raw.githubusercontent.com/api-evangelist/beehero/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- agriculture
+- agtech
+- pollination
+- beekeeping
+- precision-agriculture
+- iot
+- sensors
+- environmental-data
+- mcp
+- agent-native
+apis:
+- name: BeeHero API
+  description: >-
+    Bearer-token REST API for BeeHero platform data. Authenticate at /login with email and password to
+    receive an access_token, then read in-hive audio samples by sensor MAC address, read sensor and
+    gateway sample data, rename sensors, and manage gateway configuration (skip-remote, movement
+    interrupt, RSSI configuration). Documented with Swagger UI at docs.beehero.io.
+  humanURL: https://docs.beehero.io/
+  baseURL: https://backend.beehero.io/external
+  tags:
+  - agriculture
+  - pollination
+  - beekeeping
+  - iot
+  - sensors
+  - gateways
+  - audio
+  properties:
+  - type: OpenAPI
+    url: openapi/beehero-openapi-original.yml
+  - type: Documentation
+    url: https://docs.beehero.io/
+  - type: APIReference
+    url: https://docs.beehero.io/
+  - type: Overlay
+    url: overlays/beehero-api-overlay.yaml
+  - type: Authentication
+    url: authentication/beehero-authentication.yml
+  - type: Conventions
+    url: conventions/beehero-conventions.yml
+  - type: ErrorCatalog
+    url: errors/beehero-problem-types.yml
+  - type: DataModel
+    url: data-model/beehero-data-model.yml
+  - type: MCPServer
+    url: mcp/beehero-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/beehero-tool-crosswalk.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/beehero-agentic-access.yml
+- type: DomainSecurity
+  url: security/beehero-domain-security.yml
+- type: Authentication
+  url: authentication/beehero-authentication.yml
 - type: Website
-  url: https://forgeglobal.com/beehero_stock/
+  url: https://www.beehero.io/
+- type: Documentation
+  url: https://docs.beehero.io/
+- type: APIReference
+  url: https://docs.beehero.io/
+- type: Blog
+  url: https://www.beehero.io/the-buzz
+- type: Support
+  url: https://www.beehero.io/contact-us
+- type: Login
+  url: https://accounts.beehero.io/
+- type: TermsOfService
+  url: https://www.beehero.io/legals
+- type: PrivacyPolicy
+  url: https://www.beehero.io/privacy-policy
+- type: OpenAPI
+  url: openapi/beehero-openapi-original.yml
+- type: Overlay
+  url: overlays/beehero-api-overlay.yaml
+- type: MCPServer
+  url: mcp/beehero-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/beehero-tool-crosswalk.yml
+- type: Packages
+  url: packages/beehero-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/beehero-llms.txt
+- type: Conventions
+  url: conventions/beehero-conventions.yml
+- type: ErrorCatalog
+  url: errors/beehero-problem-types.yml
+- type: DataModel
+  url: data-model/beehero-data-model.yml
+- type: Lifecycle
+  url: lifecycle/beehero-lifecycle.yml
+- type: Conformance
+  url: conformance/beehero-conformance.yml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1

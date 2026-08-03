@@ -1,0 +1,50 @@
+generated: '2026-08-02'
+method: generated
+source:
+- openapi/beehero-openapi-original.yml
+- mcp/beehero-mcp.yml
+note: >-
+  BeeHero publishes no AGENTS.md or skill files of its own (probed 2026-08-02). These are packaged
+  operating instructions generated from the harvested OpenAPI and the official beehero-mcp package;
+  every operationId and tool name below exists verbatim in those contracts.
+skills:
+- file: beehero-read-hive-telemetry.md
+  name: Read BeeHero hive telemetry
+  api: openapi/beehero-openapi-original.yml
+  operations:
+  - login
+  - get_sensors_connected_by_gateway_mac
+  - get_sensors_sample_by_mac_address
+- file: beehero-pull-in-hive-audio.md
+  name: Pull BeeHero in-hive audio samples
+  api: openapi/beehero-openapi-original.yml
+  operations:
+  - login
+  - get_audio_sample_by_mac_address
+- file: beehero-configure-gateway.md
+  name: Inspect and configure a BeeHero gateway
+  api: openapi/beehero-openapi-original.yml
+  operations:
+  - login
+  - get_gateway_mac_address
+  - get_gateways_sample_by_mac_address
+  - get_gateway_config_status
+  - add_skip_remote_to_gateway_config
+  - remove_skip_remote_from_gateway_config
+  - movement_interrupt_gateway_config
+  - rssi_configuration
+- file: beehero-query-platform-entities-mcp.md
+  name: Query BeeHero platform entities over MCP
+  api: mcp/beehero-mcp.yml
+  operations:
+  - getAvailableEntities
+  - getRelations
+  - getBeeheroFilter
+  - getEntities
+  - getEntity
+  - getBeekeeperHivesAndFramesByGroupId
+  - getInspectionsByGroupId
+  - getExperimentsByName
+  - getExperimentPointsByExperimentId
+  - getExperimentSerializationsByExperimentPointId
+  - getExperimentSerializationByFileName

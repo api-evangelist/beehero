@@ -1,0 +1,89 @@
+generated: '2026-08-02'
+method: derived
+source:
+- openapi/beehero-openapi-original.yml
+- https://docs.beehero.io/
+- mcp/beehero-mcp.yml
+docs: https://docs.beehero.io/
+authentication:
+  style: bearer token obtained from a login endpoint
+  scheme: http bearer (JWT)
+  obtain: POST /login with {email, password}
+  present: 'Authorization: Bearer <access_token>'
+  also_returned_as: 'Set-Cookie: access_token_cookie=<token>'
+  token_lifetime: undocumented
+  refresh: undocumented
+  see_also: authentication/beehero-authentication.yml
+request:
+  media_type: application/json
+  method_semantics: >-
+    Reads are modelled as POST with a JSON body (mac[] plus from/to dates) rather than GET with query
+    parameters. Configuration changes use PUT. There are no path or query parameters anywhere in the
+    published spec — every input travels in the request body.
+  identifier: >-
+    Devices are addressed by hardware MAC address (colon-separated, e.g. d0:cf:5e:f7:33:1d), supplied
+    as a mac[] array so a single call can fan out across many devices.
+  date_format: 'YYYY-MM-DD (from / to fields, inclusive date range)'
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    BeeHero documents no idempotency key, no request de-duplication window and no retry contract.
+    The PUT configuration operations are naturally idempotent by HTTP method, but nothing is
+    published to that effect. No `Idempotency` pointer is wired in apis.yml.
+pagination:
+  supported: false
+  style: none
+  note: >-
+    The public /external operations return whole result sets bounded by the from/to date range only —
+    no limit, offset, cursor or page parameters appear in the spec, and no pagination envelope is
+    documented on any response schema.
+  mcp_variant:
+    style: limit
+    parameter: limit
+    default: 100
+    note: >-
+      The beehero-mcp getEntities tool appends ?limit=<n> (default 100) to its admin-surface calls,
+      so the underlying admin API does accept a limit. That surface is not in the public OpenAPI.
+filtering:
+  public_api: none
+  mcp_variant:
+    style: BeeHero filter expression string
+    shape: "[('att', 'op', 'string value'), ('att', 'number value'), ...]"
+    operators: [eq, not, in, notin, gt, gte, lt, lte, like, notlike, between, notbetween, or]
+    built_by: the getBeeheroFilter tool in beehero-mcp
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is documented. The MCP client sends a
+    'X-MCP-Client: beehero mcp' header for client attribution, which is the only custom header
+    observed anywhere in BeeHero's published surfaces.
+versioning:
+  style: none on the public surface
+  current: 'OpenAPI info.version 1.0.0'
+  server_path: /external
+  note: >-
+    The public API carries no version segment. The admin surface the MCP server calls is versioned by
+    path prefix (/admin vs /v2/admin), but it is undocumented.
+  see_also: lifecycle/beehero-lifecycle.yml
+error_envelope:
+  documented: false
+  spec_shape: 'description-only 401 / 403 / 404 responses, no media type, no schema'
+  observed_shape: '{"description": "...", "message": "...", "type": "..."} on unrouted paths'
+  see_also: errors/beehero-problem-types.yml
+rate_limiting:
+  documented: false
+  headers: null
+  note: No rate limits, quotas or 429 handling are published.
+webhooks:
+  supported: false
+  note: No webhook, callback or event surface is documented; the OpenAPI declares no webhooks/callbacks.
+transport_security:
+  https_only: true
+  tls_version: TLSv1.3
+  hsts: 'www.beehero.io yes (max-age 31536000); docs.beehero.io no; backend.beehero.io not advertised'
+  see_also: security/beehero-domain-security.yml

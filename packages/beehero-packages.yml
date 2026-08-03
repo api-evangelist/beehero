@@ -1,0 +1,59 @@
+generated: '2026-08-02'
+method: searched
+source: https://www.npmjs.com/package/beehero-mcp
+notes: >-
+  Registry sweep of npm, PyPI, RubyGems and crates.io on 2026-08-02. BeeHero publishes exactly one
+  first-party package: the BeeHero MCP server on npm. No first-party REST client SDK was found in any
+  registry, and no SDK/client-library links are published on docs.beehero.io or beehero.io. BeeHero's
+  CI configuration in the published tarball is bitbucket-pipelines.yml, and the github.com/BeeHero org
+  carries no company metadata and no BeeHero repositories, so no source repository is asserted here.
+registries_probed:
+- registry: npm
+  query: beehero
+  result: 1 package (beehero-mcp)
+- registry: pypi
+  query: beehero
+  result: 404 none
+- registry: rubygems
+  query: beehero
+  result: none
+- registry: crates.io
+  query: beehero
+  result: none
+- registry: packagist
+  query: beehero
+  result: none observed
+packages:
+- language: javascript
+  registry: npm
+  name: beehero-mcp
+  kind: mcp-server
+  url: https://www.npmjs.com/package/beehero-mcp
+  install: npm install -g beehero-mcp
+  bin: beehero-mcp
+  version: 1.3.8
+  published: '2025-11-03'
+  first_published: '2025-05-22'
+  versions: 18
+  license: ISC
+  official: true
+  official_evidence:
+  - 'npm maintainer: beehero'
+  - 'manifest.json author: BeeHero <support@beehero.io>'
+  - 'manifest.json homepage: https://beehero.io'
+  description: >-
+    Official BeeHero MCP server. Node stdio MCP server plus an MCPB bundle (beehero.1.3.8.mcpb) that
+    logs in to a BeeHero API server with an email/password pair and exposes 11 tools and 10 prompts for
+    querying BeeHero platform entities.
+  runtime: node
+  dependencies:
+  - "@modelcontextprotocol/sdk"
+  - "@anthropic-ai/mcpb"
+  - axios
+  - zod
+  - dotenv
+  see_also: mcp/beehero-mcp.yml
+sdks: []
+sdk_note: >-
+  No official client SDK found. beehero-mcp is an agent-facing MCP server, not a REST client library,
+  so no `SDKs` pointer is emitted for it.

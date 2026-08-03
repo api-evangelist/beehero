@@ -1,0 +1,85 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/beehero-openapi-original.yml
+format: none
+format_note: >-
+  BeeHero does not use RFC 9457 problem+json. The OpenAPI declares 401/403/404 responses with a
+  description only — no media type, no schema, no error code registry. Live 404s from
+  backend.beehero.io return a JSON envelope of the shape
+  {"description": "...", "message": "...", "type": "..."} (observed on unrouted paths during the
+  2026-08-02 probe), but that envelope is not documented in the spec.
+docs: https://docs.beehero.io/
+problems:
+- status: 401
+  title: Login required, user is not logged in
+  meaning: No access_token was presented, or the bearer token was absent from the Authorization header.
+  remediation: >-
+    Call POST /login with email and password, then resend with the header
+    Authorization: Bearer <access_token>.
+  media_type: null
+  schema: null
+  applies_to_operations:
+  - get_audio_sample_by_mac_address
+  - get_sensors_sample_by_mac_address
+  - get_sensors_connected_by_gateway_mac
+  - update_sensor_name
+  - get_gateways_sample_by_mac_address
+  - get_gateway_mac_address
+  - add_skip_remote_to_gateway_config
+  - remove_skip_remote_from_gateway_config
+  - get_gateway_config_status
+  - movement_interrupt_gateway_config
+  - rssi_configuration
+- status: 403
+  title: Invalid Token
+  meaning: An access_token was presented but is expired, malformed, or not valid for this account.
+  remediation: Re-run POST /login to obtain a fresh access_token. Token lifetime is not documented.
+  media_type: null
+  schema: null
+  applies_to_operations:
+  - get_audio_sample_by_mac_address
+  - get_sensors_sample_by_mac_address
+  - get_sensors_connected_by_gateway_mac
+  - update_sensor_name
+  - get_gateways_sample_by_mac_address
+  - get_gateway_mac_address
+  - add_skip_remote_to_gateway_config
+  - remove_skip_remote_from_gateway_config
+  - get_gateway_config_status
+  - movement_interrupt_gateway_config
+  - rssi_configuration
+- status: 404
+  title: Validation exception
+  meaning: >-
+    The request body failed validation, or the referenced MAC address / resource was not found.
+    BeeHero returns 404 rather than 400/422 for validation failures on every non-auth operation.
+  remediation: >-
+    Check that mac[] entries are colon-separated lowercase MAC addresses and that from/to dates use
+    the YYYY-MM-DD format documented on the operation.
+  media_type: null
+  schema: null
+  applies_to_operations:
+  - get_audio_sample_by_mac_address
+  - get_sensors_sample_by_mac_address
+  - get_sensors_connected_by_gateway_mac
+  - update_sensor_name
+  - get_gateways_sample_by_mac_address
+  - get_gateway_mac_address
+  - add_skip_remote_to_gateway_config
+  - remove_skip_remote_from_gateway_config
+  - get_gateway_config_status
+  - movement_interrupt_gateway_config
+  - rssi_configuration
+- status: 404
+  title: Login credentials do not match
+  meaning: The email/password pair supplied to POST /login was rejected.
+  remediation: Verify the BeeHero account credentials; there is no separate 401 on the login operation.
+  media_type: null
+  schema: null
+  applies_to_operations:
+  - login
+gaps:
+- No 5xx responses are declared on any operation.
+- No error code registry, no machine-readable error type URIs, no problem+json.
+- Validation failures are modelled as 404 rather than 400/422.
+- No rate-limit error (429) is declared or documented.

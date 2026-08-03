@@ -1,0 +1,129 @@
+generated: '2026-08-02'
+method: derived
+source:
+- openapi/beehero-openapi-original.yml
+- mcp/beehero-mcp.yml
+note: >-
+  Two disjoint models. The public OpenAPI models telemetry only — sensors, gateways and audio,
+  addressed by hardware MAC address, with no surrogate ids and no $ref-based relationships. The
+  official beehero-mcp package ships an explicit, first-party entity relationship graph for the
+  BeeHero platform (groups, farms, orchards, yards, devices, experiments, hardware); that graph is
+  transcribed verbatim below from the package's relationshipMap and its entity-relationship prompts.
+identifier_style:
+  public_api: hardware MAC address (colon-separated), no surrogate ids
+  platform: '<entity>_id foreign keys (group_id, farm_id, orchard_id, gateway_id, ...)'
+entities:
+- name: Sensor
+  domain: telemetry
+  source: openapi/beehero-openapi-original.yml#/components/schemas/Sensor
+  key: sensor_mac_address
+  fields:
+  - {name: sensor_mac_address, type: string}
+  - {name: gateway_mac_address, type: string, ref: Gateway}
+  - {name: temperature, type: integer}
+  - {name: pcb_temperature_one, type: integer}
+  - {name: humidity, type: integer}
+  - {name: in_count, type: integer, description: bees entering the hive}
+  - {name: out_count, type: integer, description: bees exiting the hive}
+  - {name: external_weight, type: integer}
+  - {name: bleRssi, type: integer}
+  - {name: voltage, type: integer}
+  - {name: firmware_version, type: string}
+  - {name: timestamp, type: string}
+- name: SensorsConnected
+  domain: telemetry
+  source: openapi/beehero-openapi-original.yml#/components/schemas/SensorsConnected
+  key: gateway_mac
+  fields:
+  - {name: gateway_mac, type: string, ref: Gateway}
+  - {name: sensors_conected, type: array of sensor MAC addresses, ref: Sensor}
+- name: Gateway
+  domain: telemetry
+  source: openapi/beehero-openapi-original.yml#/components/schemas/Gateway
+  key: gateway_mac_address
+  fields:
+  - {name: gateway_mac_address, type: string}
+  - {name: humidity, type: integer}
+  - {name: modem_rssi, type: integer}
+  - {name: latitude, type: integer}
+  - {name: longitude, type: integer}
+  - {name: pcb_temperature_two, type: integer}
+  - {name: battery_voltage, type: integer}
+  - {name: firmware_version, type: string}
+  - {name: timestamp, type: string}
+- name: Audio
+  domain: telemetry
+  source: openapi/beehero-openapi-original.yml#/components/schemas/Audio
+  key: mac
+  fields:
+  - {name: mac, type: string, ref: Sensor}
+  - {name: audios, type: array, ref: AudioObject}
+- name: AudioObject
+  domain: telemetry
+  source: openapi/beehero-openapi-original.yml#/components/schemas/AudioObject
+  fields:
+  - {name: key, type: string, description: audio file key}
+  - {name: url, type: string, description: download URL}
+- name: Login
+  domain: auth
+  source: openapi/beehero-openapi-original.yml#/components/schemas/Login
+  fields:
+  - {name: access_token, type: string}
+platform_entities:
+  source: mcp/beehero-mcp.yml (beehero-mcp@1.3.8 entity registry)
+  core: [groups, users, farms, orchards, orchard-markers, yards]
+  hardware: [gateways, sensors, firmware-versions, hardware-orders, hardware-shipments]
+  monitoring: [sensor-daily-statuses, inspections, orchard-weather-inspections, hourly-orchard-marker-updates, hourly-pip-sensor-updates, in-field-serializations]
+  experiments: [experiments, experiment-points, experiment-serializations]
+  seasonal: [seasons, pollination-tasks, crop-types]
+relationships:
+- {from: groups, to: users, kind: has_many, via: group_id}
+- {from: groups, to: farms, kind: has_many, via: group_id}
+- {from: groups, to: yards, kind: has_many, via: group_id}
+- {from: groups, to: gateways, kind: has_many, via: group_id}
+- {from: groups, to: sensors, kind: has_many, via: group_id}
+- {from: groups, to: hardware-orders, kind: has_many, via: group_id}
+- {from: groups, to: hardware-shipments, kind: has_many, via: group_id}
+- {from: groups, to: users, kind: has_one, via: executive_id, role: executive}
+- {from: farms, to: groups, kind: belongs_to, via: group_id}
+- {from: farms, to: orchards, kind: has_many, via: farm_id}
+- {from: farms, to: users, kind: has_one, via: manager_id, role: manager}
+- {from: farms, to: users, kind: has_one, via: pca_id, role: pca}
+- {from: orchards, to: farms, kind: belongs_to, via: farm_id}
+- {from: orchards, to: yards, kind: has_many, via: orchard_id}
+- {from: orchards, to: orchard-markers, kind: has_many, via: orchard_id}
+- {from: yards, to: groups, kind: belongs_to, via: group_id}
+- {from: yards, to: gateways, kind: has_many, via: yard_id}
+- {from: gateways, to: groups, kind: belongs_to, via: group_id}
+- {from: gateways, to: yards, kind: belongs_to, via: yard_id}
+- {from: gateways, to: sensors, kind: has_many, via: gateway_id}
+- {from: sensors, to: groups, kind: belongs_to, via: group_id}
+- {from: sensors, to: gateways, kind: belongs_to, via: gateway_id}
+- {from: sensors, to: hives, kind: belongs_to, via: hive_id}
+- {from: sensor-daily-statuses, to: sensors, kind: belongs_to, via: sensor_id}
+- {from: sensor-daily-statuses, to: gateways, kind: belongs_to, via: gateway_id}
+- {from: sensor-daily-statuses, to: yards, kind: belongs_to, via: yard_id}
+- {from: sensor-daily-statuses, to: orchards, kind: belongs_to, via: orchard_id}
+- {from: inspections, to: groups, kind: belongs_to, via: group_id}
+- {from: inspections, to: gateways, kind: belongs_to, via: gateway_id}
+- {from: inspections, to: sensors, kind: belongs_to, via: sensor_id}
+- {from: inspections, to: hives, kind: belongs_to, via: hive_id}
+- {from: inspections, to: yards, kind: belongs_to, via: yard_id}
+- {from: inspections, to: users, kind: belongs_to, via: collaborator}
+- {from: orchard-markers, to: orchards, kind: belongs_to, via: orchard_id}
+- {from: orchard-markers, to: in-field-serializations, kind: has_many, via: orchard_marker_id}
+- {from: orchard-markers, to: hourly-orchard-marker-updates, kind: has_many, via: orchard_marker_id}
+- {from: in-field-serializations, to: hourly-pip-sensor-updates, kind: has_many, via: serialization_id}
+- {from: experiments, to: experiment-points, kind: has_many, via: experiment_id}
+- {from: experiment-points, to: experiments, kind: belongs_to, via: experiment_id}
+- {from: experiment-points, to: orchards, kind: belongs_to, via: orchard_id}
+- {from: experiment-points, to: experiment-serializations, kind: has_many, via: experiment_point_id}
+- {from: experiment-serializations, to: gateways, kind: belongs_to, via: gateway_id}
+- {from: experiment-serializations, to: sensors, kind: belongs_to, via: sensor_id}
+- {from: seasons, to: groups, kind: has_many, via: association}
+- {from: seasons, to: pollination-tasks, kind: has_many, via: seasonal_activity_id}
+- {from: hardware-shipments, to: groups, kind: belongs_to, via: group_id}
+- {from: hardware-shipments, to: users, kind: belongs_to, via: created_by_user_id}
+- {from: hardware-orders, to: groups, kind: belongs_to, via: group_id}
+- {from: orchard-weather-inspections, to: orchards, kind: belongs_to, via: orchard_id}
+render: null
