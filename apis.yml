@@ -31,31 +31,20 @@ tags:
 - mcp
 - agent-native
 apis:
-- name: BeeHero API
-  description: >-
-    Bearer-token REST API for BeeHero platform data. Authenticate at /login with email and password to
-    receive an access_token, then read in-hive audio samples by sensor MAC address, read sensor and
-    gateway sample data, rename sensors, and manage gateway configuration (skip-remote, movement
-    interrupt, RSSI configuration). Documented with Swagger UI at docs.beehero.io.
+- aid: beehero:beehero-audio-api
+  name: BeeHero Audio API
+  description: Get audio files from sensors
   humanURL: https://docs.beehero.io/
   baseURL: https://backend.beehero.io/external
   tags:
-  - agriculture
-  - pollination
-  - beekeeping
-  - iot
-  - sensors
-  - gateways
-  - audio
+  - Audio
   properties:
   - type: OpenAPI
-    url: openapi/beehero-openapi-original.yml
+    url: openapi/beehero-audio-api-openapi.yml
   - type: Documentation
     url: https://docs.beehero.io/
   - type: APIReference
     url: https://docs.beehero.io/
-  - type: Overlay
-    url: overlays/beehero-api-overlay.yaml
   - type: Authentication
     url: authentication/beehero-authentication.yml
   - type: Conventions
@@ -64,8 +53,78 @@ apis:
     url: errors/beehero-problem-types.yml
   - type: DataModel
     url: data-model/beehero-data-model.yml
-  - type: MCPServer
-    url: mcp/beehero-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/beehero-tool-crosswalk.yml
+- aid: beehero:beehero-auth-api
+  name: BeeHero Auth API
+  description: Login to BeeHero API
+  humanURL: https://docs.beehero.io/
+  baseURL: https://backend.beehero.io/external
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/beehero-auth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.beehero.io/
+  - type: APIReference
+    url: https://docs.beehero.io/
+  - type: Authentication
+    url: authentication/beehero-authentication.yml
+  - type: Conventions
+    url: conventions/beehero-conventions.yml
+  - type: ErrorCatalog
+    url: errors/beehero-problem-types.yml
+  - type: DataModel
+    url: data-model/beehero-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/beehero-tool-crosswalk.yml
+- aid: beehero:beehero-gateways-api
+  name: BeeHero Gateways API
+  description: Get gateways sample data
+  humanURL: https://docs.beehero.io/
+  baseURL: https://backend.beehero.io/external
+  tags:
+  - Gateways
+  properties:
+  - type: OpenAPI
+    url: openapi/beehero-gateways-api-openapi.yml
+  - type: Documentation
+    url: https://docs.beehero.io/
+  - type: APIReference
+    url: https://docs.beehero.io/
+  - type: Authentication
+    url: authentication/beehero-authentication.yml
+  - type: Conventions
+    url: conventions/beehero-conventions.yml
+  - type: ErrorCatalog
+    url: errors/beehero-problem-types.yml
+  - type: DataModel
+    url: data-model/beehero-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/beehero-tool-crosswalk.yml
+- aid: beehero:beehero-sensors-api
+  name: BeeHero Sensors API
+  description: Get sensors sample data
+  humanURL: https://docs.beehero.io/
+  baseURL: https://backend.beehero.io/external
+  tags:
+  - Sensors
+  properties:
+  - type: OpenAPI
+    url: openapi/beehero-sensors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.beehero.io/
+  - type: APIReference
+    url: https://docs.beehero.io/
+  - type: Authentication
+    url: authentication/beehero-authentication.yml
+  - type: Conventions
+    url: conventions/beehero-conventions.yml
+  - type: ErrorCatalog
+    url: errors/beehero-problem-types.yml
+  - type: DataModel
+    url: data-model/beehero-data-model.yml
   - type: ToolCrosswalk
     url: mcp/beehero-tool-crosswalk.yml
 maintainers:
@@ -97,7 +156,7 @@ common:
 - type: PrivacyPolicy
   url: https://www.beehero.io/privacy-policy
 - type: OpenAPI
-  url: openapi/beehero-openapi-original.yml
+  url: openapi/_original/beehero-openapi-original.yml
 - type: Overlay
   url: overlays/beehero-api-overlay.yaml
 - type: MCPServer
