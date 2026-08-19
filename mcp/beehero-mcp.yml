@@ -23,12 +23,10 @@ server:
   author: BeeHero <support@beehero.io>
   homepage: https://beehero.io
   hosted_url: null
-  hosted_note: >-
-    No remote/hosted MCP endpoint is published. The server runs locally over stdio and calls a
-    BeeHero API server supplied by the operator.
-  instructions: >-
-    Access Beehero API to get beehero users, hives, groups, gateways, sensors, farms, yards, orchards,
-    markers, and more.
+  hosted_note: No remote/hosted MCP endpoint is published. The server runs locally over stdio and calls
+    a BeeHero API server supplied by the operator.
+  instructions: Access Beehero API to get beehero users, hives, groups, gateways, sensors, farms, yards,
+    orchards, markers, and more.
 authentication:
   style: email + password login, exchanged for a bearer access_token
   login_path: /admin/login
@@ -70,8 +68,7 @@ tools:
   description: Get experiment serializations by experiment point ID
   input_schema:
     experiment_point_id: string (required)
-  backing_request: >-
-    GET {API_SERVER_URL}/v2/admin/experiment_points/{experiment_point_id}/experiment_serializations
+  backing_request: GET {API_SERVER_URL}/v2/admin/experiment_points/{experiment_point_id}/experiment_serializations
 - name: getExperimentSerializationByFileName
   description: Get experiment serialization by file name
   input_schema:
@@ -126,16 +123,14 @@ tools:
     hourly-orchard-marker-updates: /growers/hourly-orchard-marker-updates
     orchard-marker-updates: /growers/hourly-orchard-marker-updates
 - name: getAvailableEntities
-  description: >-
-    Get a list of all available entity types that can be used with getEntities, getEntity, and
-    getRelations tools.
+  description: Get a list of all available entity types that can be used with getEntities, getEntity,
+    and getRelations tools.
   input_schema: {}
   backing_request: null
   binding: client-side (static entity registry)
 - name: getBeeheroFilter
-  description: >-
-    Create or alter a BeeHero filter. Returns a filter string in the format
-    [('att', 'op', 'string value'), ('att', 'number value'), ...].
+  description: Create or alter a BeeHero filter. Returns a filter string in the format [('att', 'op',
+    'string value'), ('att', 'number value'), ...].
   input_schema:
     filter: string (optional) - existing filter, or empty string for a new filter
     attributes: object (required) - attribute names to values or [operator, value] arrays
@@ -155,9 +150,8 @@ tools:
   backing_request: null
   binding: client-side (filter builder)
 - name: getRelations
-  description: >-
-    Find the relationship path between two entity types. Returns the path of relationships and
-    instructions on how to navigate from one entity type to another using filters.
+  description: Find the relationship path between two entity types. Returns the path of relationships
+    and instructions on how to navigate from one entity type to another using filters.
   input_schema:
     fromEntity: string (required)
     toEntity: string (required)
@@ -194,7 +188,15 @@ x-evidence:
   npm_registry: https://registry.npmjs.org/beehero-mcp
   latest_version: 1.3.8
   published: '2025-11-03T10:20:04.587Z'
-  tools_list_probe: >-
-    Not applicable — stdio transport only, no hosted endpoint to POST tools/list against. Tool names,
-    descriptions and input schemas above are read verbatim from the published manifest.json and
-    src/Server.ts of beehero-mcp@1.3.8.
+  tools_list_probe: Not applicable — stdio transport only, no hosted endpoint to POST tools/list against.
+    Tool names, descriptions and input schemas above are read verbatim from the published manifest.json
+    and src/Server.ts of beehero-mcp@1.3.8.
+deployment:
+  mode: none
+  endpoint: https://beehero.io
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

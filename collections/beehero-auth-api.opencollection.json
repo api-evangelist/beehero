@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BeeHero API Documentation Auth API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Login to BeeHero API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Login to BeeHero API with email and password.\nPlease note, once you logged in successfully, the response will include an authorization header -  This access_token header would have to be in the header of each API request below"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

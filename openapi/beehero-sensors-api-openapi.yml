@@ -1,0 +1,207 @@
+openapi: 3.2.0
+info:
+  description: 'BeeHero API Documentation
+
+
+    READ ME:
+
+
+    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.
+
+    '
+  version: 1.0.0
+  title: BeeHero API Documentation Sensors API
+  contact:
+    email: yuval@beehero.io
+servers:
+- url: https://backend.beehero.io/external
+tags:
+- name: Sensors
+  description: Get sensors sample data
+paths:
+  /sensors/samples:
+    post:
+      tags:
+      - Sensors
+      summary: Get sensors samples by mac address
+      description: Given a list of mac addresses and begin & end dates, BeeHero will return a list of samples (temperature, humidity, bees' in-count and out-count etc) for sensors with these mac addresses between these dates
+      operationId: get_sensors_sample_by_mac_address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: array
+                  items:
+                    type: string
+                    description: mac address to fetch
+                  example:
+                  - d0:cf:5e:f7:33:1d
+                  - d0:cf:5e:f7:33:1e
+                from:
+                  type: string
+                  example: '2020-10-18'
+                  description: 'Date to start getting samples from. format: YYYY-MM-DD'
+                to:
+                  type: string
+                  example: '2020-10-18'
+                  description: 'Last date to get samples from. format: YYYY-MM-DD'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sensor'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /sensors/samples_connected:
+    post:
+      tags:
+      - Sensors
+      summary: Get sensors connected to a gateway
+      description: Given a gateway mac addresses, BeeHero will return a list of sensors that are connected to the gateway
+      operationId: get_sensors_connected_by_gateway_mac
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: d0:cf:5e:f7:33:1d
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorsConnected'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /sensors/update_sensor_name:
+    put:
+      tags:
+      - Sensors
+      summary: Update sensor name
+      description: Given a sensor mac address and a name, BeeHero will update the sensor's name
+      operationId: update_sensor_name
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: d0:cf:5e:f7:33:1d
+                name:
+                  type: string
+                  description: sensor name
+                  example: new name
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorsUpdateName'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    SensorsUpdateName:
+      type: string
+      example: Name was successfully changed fron name old to name new name for mac d0:cf:5e:f7:33:1d
+    Sensor:
+      type: array
+      items:
+        type: object
+        properties:
+          gateway_mac_address:
+            type: string
+            description: Gateway mac address
+          sensor_mac_address:
+            type: string
+            description: Sensor mac address
+          temperature:
+            type: integer
+            description: Temperature from sample
+          pcb_temperature_one:
+            type: integer
+            description: Pcb temperature one from sample
+          humidity:
+            type: integer
+            description: Humidity from sample
+          in_count:
+            type: integer
+            description: Number Of bees entering the hive
+          out_count:
+            type: integer
+            description: Number Of bees exiting the hive
+          timestamp:
+            type: string
+            description: Sample timestamp
+          bleRssi:
+            type: integer
+            description: Signal strength
+          external_weight:
+            type: integer
+            description: Eternal weight
+          voltage:
+            type: integer
+            description: Sensor voltage
+          firmware_version:
+            type: string
+            description: Firmware Version
+          message:
+            type: string
+            description: Message on finding a Mac
+    SensorsConnected:
+      type: array
+      items:
+        type: object
+        properties:
+          gateway_mac:
+            type: string
+            description: Gateway mac address
+          sensors_conected:
+            type: array
+            items:
+              type: string
+              description: Sensors mac addresses connected to the gateway
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Please enter access_token (taken from login response body)
+externalDocs:
+  description: Find out more about BeeHero
+  url: https://www.beehero.io/

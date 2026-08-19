@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BeeHero API Documentation Audio API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get audio samples by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/get_audio_samples",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a list of mac addresses and begin & end dates, BeeHero will return a list of audio samples for sensors with these mac addresses between these dates"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

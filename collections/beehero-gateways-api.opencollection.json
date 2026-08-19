@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BeeHero API Documentation Gateways API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gateways",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get gateways samples by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/gateways/samples",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a list of mac addresses and begin & end dates, BeeHero will return a list of samples (temperature, humidity, modem rssi, etc) for gateways with these mac addresses between these dates"
+        },
+        {
+          "info": {
+            "name": "Get gateway mac address by external barcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/gateways/samples/get_mac_address",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given an external barcode BeeHero will return the gateway mac address"
+        },
+        {
+          "info": {
+            "name": "Add SKIP_REMOTE to gateway config by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://backend.beehero.io/external/gateways/add_skip_remote",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a gateway mac address BeeHero will disable sensor sample"
+        },
+        {
+          "info": {
+            "name": "Remove SKIP_REMOTE from gateway config by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://backend.beehero.io/external/gateways/remove_skip_remote",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a gateway mac address BeeHero will activate gateway config"
+        },
+        {
+          "info": {
+            "name": "Get gateway config status by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/gateways/gateway_config_status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a mac address, BeeHero will return gateway config status"
+        },
+        {
+          "info": {
+            "name": "Configure gateway config movement interrupts by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://backend.beehero.io/external/gateways/movement_interrupt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a gateway mac address and movement interrupt field BeeHero will update the gateway config.\n\n- movement_threshold_low - The min threshold of the movement interrupt.\n\n- movement_interrupt_duration - Min duration (seconds) for each movement interrupt.\n\n- movement_interrupt - turn \"movement interrupt\" on and off (boolean)\n"
+        },
+        {
+          "info": {
+            "name": "Configure gateway configuration by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://backend.beehero.io/external/gateways/rssi_configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a gateway mac_address, min_rssi and max_remotes, BeeHero will update the gateway config.\n\n- min_rssi - Minimum reception distance.\n\n    The recommended range of BeeHero is between -60 to -80. \n\n    The possible range is between -10 to -100.\n\n- max_remotes - The maximum number of remotes connected to the gateway.\n\n    The recommended number of BeeHero is 8.\n\n    The possible range is between 1 to 12.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

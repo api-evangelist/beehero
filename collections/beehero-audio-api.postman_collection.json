@@ -1,0 +1,280 @@
+{
+  "item": [
+    {
+      "id": "77bab5b9-5c32-43d3-b175-db104617ad1d",
+      "name": "Audio",
+      "description": {
+        "content": "Get audio files from sensors",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "40edf1bf-cf01-453e-9b5f-aaa34e1014c2",
+          "name": "Get audio samples by mac address",
+          "request": {
+            "name": "Get audio samples by mac address",
+            "description": {
+              "content": "Given a list of mac addresses and begin & end dates, BeeHero will return a list of audio samples for sensors with these mac addresses between these dates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "get_audio_samples"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mac\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"from\": \"<string>\",\n  \"to\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "305d5cd9-2e50-40b2-96d3-d743f80f5986",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_audio_samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"mac\": \"string\",\n    \"audios\": [\n      {\n        \"key\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"url\": \"string\"\n      }\n    ]\n  },\n  {\n    \"mac\": \"string\",\n    \"audios\": [\n      {\n        \"key\": \"string\",\n        \"url\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"url\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "437bf0e2-5b8d-457a-a6af-50f40ea89949",
+              "name": "Login required, user is not logged in",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_audio_samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e39943d-99fb-4698-8ee1-fd1ba899e91f",
+              "name": "Invalid Token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_audio_samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "51b97c05-67ca-4a61-a4d0-e8d9bea2f6af",
+              "name": "Validation exception",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "get_audio_samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://backend.beehero.io/external",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9d872e85-b33a-4dbb-a056-81669e713b8b",
+    "name": "BeeHero API Documentation Audio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "BeeHero API Documentation\n\nREAD ME:\n\nTo use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.\n\n\nContact Support:\n Email: yuval@beehero.io",
+      "type": "text/plain"
+    }
+  }
+}

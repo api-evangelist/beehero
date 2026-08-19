@@ -1,0 +1,26 @@
+{
+  "provider": "beehero",
+  "sources": [
+    "beehero-audio-api-openapi.yml",
+    "beehero-auth-api-openapi.yml",
+    "beehero-gateways-api-openapi.yml",
+    "beehero-sensors-api-openapi.yml"
+  ],
+  "outputs": [
+    "beehero-audio-api-openapi.yml",
+    "beehero-auth-api-openapi.yml",
+    "beehero-gateways-api-openapi.yml",
+    "beehero-sensors-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "beehero-audio-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "beehero-auth-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "beehero-gateways-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "beehero-sensors-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

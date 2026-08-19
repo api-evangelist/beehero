@@ -1,0 +1,791 @@
+{
+  "item": [
+    {
+      "id": "264a5b5f-7202-4f95-b988-40b1b81285cd",
+      "name": "Sensors",
+      "description": {
+        "content": "Get sensors sample data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c21906f-014b-4d06-a2cd-0081288039ea",
+          "name": "Get sensors samples by mac address",
+          "request": {
+            "name": "Get sensors samples by mac address",
+            "description": {
+              "content": "Given a list of mac addresses and begin & end dates, BeeHero will return a list of samples (temperature, humidity, bees' in-count and out-count etc) for sensors with these mac addresses between these dates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sensors",
+                "samples"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mac\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"from\": \"<string>\",\n  \"to\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b6e84f3-4551-40f9-b25c-095e51f70b7e",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"gateway_mac_address\": \"string\",\n    \"sensor_mac_address\": \"string\",\n    \"temperature\": 2014,\n    \"pcb_temperature_one\": 5393,\n    \"humidity\": 1574,\n    \"in_count\": 7901,\n    \"out_count\": 1069,\n    \"timestamp\": \"string\",\n    \"bleRssi\": 5373,\n    \"external_weight\": 6738,\n    \"voltage\": 9381,\n    \"firmware_version\": \"string\",\n    \"message\": \"string\"\n  },\n  {\n    \"gateway_mac_address\": \"string\",\n    \"sensor_mac_address\": \"string\",\n    \"temperature\": 6294,\n    \"pcb_temperature_one\": 2867,\n    \"humidity\": 4931,\n    \"in_count\": 9644,\n    \"out_count\": 398,\n    \"timestamp\": \"string\",\n    \"bleRssi\": 5451,\n    \"external_weight\": 5337,\n    \"voltage\": 4114,\n    \"firmware_version\": \"string\",\n    \"message\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e65d5ae-733a-42ed-8870-5564ec209221",
+              "name": "Login required, user is not logged in",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06c6bca5-11be-4cf7-97a5-551b7c516a1a",
+              "name": "Invalid Token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2623bf19-6ac0-4b31-a57a-d1ba7b50f589",
+              "name": "Validation exception",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": [\n    \"d0:cf:5e:f7:33:1d\",\n    \"d0:cf:5e:f7:33:1e\"\n  ],\n  \"from\": \"2020-10-18\",\n  \"to\": \"2020-10-18\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c4ea40d-b965-450d-9bea-7062db023aa1",
+          "name": "Get sensors connected to a gateway",
+          "request": {
+            "name": "Get sensors connected to a gateway",
+            "description": {
+              "content": "Given a gateway mac addresses, BeeHero will return a list of sensors that are connected to the gateway",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sensors",
+                "samples_connected"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mac\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81b1280e-dc36-43a1-bc64-e78d68c2b7ff",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples_connected"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"gateway_mac\": \"string\",\n    \"sensors_conected\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"gateway_mac\": \"string\",\n    \"sensors_conected\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07523afd-cccc-4fe2-8be4-399eea4802b7",
+              "name": "Login required, user is not logged in",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples_connected"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3647cbcc-b3af-4399-9558-76c6e124f6e6",
+              "name": "Invalid Token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples_connected"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "022c16ab-ba26-4597-88bb-1e9abf3d3560",
+              "name": "Validation exception",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "samples_connected"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74bf91b5-f603-4132-a756-13e7781ecdc7",
+          "name": "Update sensor name",
+          "request": {
+            "name": "Update sensor name",
+            "description": {
+              "content": "Given a sensor mac address and a name, BeeHero will update the sensor's name",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sensors",
+                "update_sensor_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mac\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b0d7677-0509-4c30-b6de-77f73fc7a52e",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "update_sensor_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\",\n  \"name\": \"new name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Name was successfully changed fron name old to name new name for mac d0:cf:5e:f7:33:1d\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "461445ee-7154-4f36-8239-ac49c4982142",
+              "name": "Login required, user is not logged in",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "update_sensor_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\",\n  \"name\": \"new name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ae96c63-0db9-46af-ba04-d6b13bb65d4e",
+              "name": "Invalid Token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "update_sensor_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\",\n  \"name\": \"new name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "431586ce-19e8-46f2-b129-3fab4b4a9d4f",
+              "name": "Validation exception",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sensors",
+                    "update_sensor_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mac\": \"d0:cf:5e:f7:33:1d\",\n  \"name\": \"new name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://backend.beehero.io/external",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9290e864-466e-4c13-8823-deefff12ed8a",
+    "name": "BeeHero API Documentation Sensors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "BeeHero API Documentation\n\nREAD ME:\n\nTo use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.\n\n\nContact Support:\n Email: yuval@beehero.io",
+      "type": "text/plain"
+    }
+  }
+}

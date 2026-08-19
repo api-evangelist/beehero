@@ -1,0 +1,166 @@
+{
+  "item": [
+    {
+      "id": "3c238a68-1496-4387-8dcc-74613d5436c2",
+      "name": "Auth",
+      "description": {
+        "content": "Login to BeeHero API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "684bbda5-2a21-4258-8b6c-dc55d77211a5",
+          "name": "Login to BeeHero API",
+          "request": {
+            "name": "Login to BeeHero API",
+            "description": {
+              "content": "Login to BeeHero API with email and password.\nPlease note, once you logged in successfully, the response will include an authorization header -  This access_token header would have to be in the header of each API request below",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59115777-2ec0-4d0b-a956-5b901c366859",
+              "name": "Successful login, a token will be sent in the response body and in the set-cookie header",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@mail.com\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Set-Cookie",
+                  "value": "access_token_cookie=abcde12345;",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42c89049-8363-4956-b5fd-d850feea2f2d",
+              "name": "Login credentials do not match",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@mail.com\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://backend.beehero.io/external",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "03baf6e3-7861-4c92-811c-5b278068c341",
+    "name": "BeeHero API Documentation Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "BeeHero API Documentation\n\nREAD ME:\n\nTo use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.\n\n\nContact Support:\n Email: yuval@beehero.io",
+      "type": "text/plain"
+    }
+  }
+}

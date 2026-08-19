@@ -1,0 +1,362 @@
+openapi: 3.2.0
+info:
+  description: 'BeeHero API Documentation
+
+
+    READ ME:
+
+
+    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.
+
+    '
+  version: 1.0.0
+  title: BeeHero API Documentation Gateways API
+  contact:
+    email: yuval@beehero.io
+servers:
+- url: https://backend.beehero.io/external
+tags:
+- name: Gateways
+  description: Get gateways sample data
+paths:
+  /gateways/samples:
+    post:
+      tags:
+      - Gateways
+      summary: Get gateways samples by mac address
+      description: Given a list of mac addresses and begin & end dates, BeeHero will return a list of samples (temperature, humidity, modem rssi, etc) for gateways with these mac addresses between these dates
+      operationId: get_gateways_sample_by_mac_address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: array
+                  items:
+                    type: string
+                    description: mac address to fetch
+                  example:
+                  - 00:00:00:00:00:01
+                  - 00:0b:57:ce:22:ae
+                from:
+                  type: string
+                  example: '2020-10-18'
+                  description: 'Date to start getting samples from. format: YYYY-MM-DD'
+                to:
+                  type: string
+                  example: '2020-10-20'
+                  description: 'Last date to get samples from. format: YYYY-MM-DD'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gateway'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/samples/get_mac_address:
+    post:
+      tags:
+      - Gateways
+      summary: Get gateway mac address by external barcode
+      description: Given an external barcode BeeHero will return the gateway mac address
+      operationId: get_gateway_mac_address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_barcode:
+                  type: string
+                  description: external barcode to fetch
+                  example: 12345678
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayGetMac'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/add_skip_remote:
+    put:
+      tags:
+      - Gateways
+      summary: Add SKIP_REMOTE to gateway config by mac address
+      description: Given a gateway mac address BeeHero will disable sensor sample
+      operationId: add_skip_remote_to_gateway_config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: 00:0b:57:ce:22:ac
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayAddSkipRemote'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/remove_skip_remote:
+    put:
+      tags:
+      - Gateways
+      summary: Remove SKIP_REMOTE from gateway config by mac address
+      description: Given a gateway mac address BeeHero will activate gateway config
+      operationId: remove_skip_remote_from_gateway_config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: 00:0b:57:ce:22:ac
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayRemoveSkipRemote'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/gateway_config_status:
+    post:
+      tags:
+      - Gateways
+      summary: Get gateway config status by mac address
+      description: Given a mac address, BeeHero will return gateway config status
+      operationId: get_gateway_config_status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: d0:cf:5e:f7:33:1d
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayGetSkipRemoteStatus'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/movement_interrupt:
+    put:
+      tags:
+      - Gateways
+      summary: Configure gateway config movement interrupts by mac address
+      description: 'Given a gateway mac address and movement interrupt field BeeHero will update the gateway config.
+
+
+        - movement_threshold_low - The min threshold of the movement interrupt.
+
+
+        - movement_interrupt_duration - Min duration (seconds) for each movement interrupt.
+
+
+        - movement_interrupt - turn "movement interrupt" on and off (boolean)
+
+        '
+      operationId: movement_interrupt_gateway_config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: 00:0b:57:ce:22:ac
+                movement_threshold_low:
+                  type: integer
+                  description: movement threshold low to update
+                  example: 22
+                movement_interrupt_duration:
+                  type: integer
+                  description: movement threshold duration to update
+                  example: 2
+                movement_interrupt:
+                  type: boolean
+                  description: movement threshold to update
+                  example: true
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayMovementInterrupt'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+  /gateways/rssi_configuration:
+    put:
+      tags:
+      - Gateways
+      summary: Configure gateway configuration by mac address
+      description: "Given a gateway mac_address, min_rssi and max_remotes, BeeHero will update the gateway config.\n\n- min_rssi - Minimum reception distance.\n\n    The recommended range of BeeHero is between -60 to -80. \n\n    The possible range is between -10 to -100.\n\n- max_remotes - The maximum number of remotes connected to the gateway.\n\n    The recommended number of BeeHero is 8.\n\n    The possible range is between 1 to 12.\n"
+      operationId: rssi_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mac:
+                  type: string
+                  description: mac address to fetch
+                  example: 00:0b:57:ce:22:ac
+                min_rssi:
+                  type: integer
+                  description: number of min rssi to update
+                  example: -60
+                max_remotes:
+                  type: integer
+                  description: number of max remotes to update
+                  example: 8
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayRssiConfiguration'
+        '401':
+          description: Login required, user is not logged in
+        '403':
+          description: Invalid Token
+        '404':
+          description: Validation exception
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    GatewayMovementInterrupt:
+      type: string
+      example: Movement interrupt updated successfully.
+    Gateway:
+      type: array
+      items:
+        type: object
+        properties:
+          gateway_mac_address:
+            type: string
+            description: Gateway mac address
+          humidity:
+            type: integer
+            description: Humidity from sample
+          modem_rssi:
+            type: integer
+            description: Modem rssi from sample
+          latitude:
+            type: integer
+            description: Latitude from sample
+          longitude:
+            type: integer
+            description: Longitude from sample
+          pcb_temperature_two:
+            type: integer
+            description: Temperature from sample
+          timestamp:
+            type: string
+            description: Sample timestamp
+          battery_voltage:
+            type: integer
+            description: Battery voltage
+          firmware_version:
+            type: string
+            description: Firmware Version
+          message:
+            type: string
+            description: Message on finding a Mac
+    GatewayGetMac:
+      type: object
+      properties:
+        gateway_mac_address:
+          type: string
+          description: Gateway mac address
+    GatewayRemoveSkipRemote:
+      type: string
+      example: Successful activation.
+    GatewayRssiConfiguration:
+      type: string
+      example: Mac d0:cf:5e:f7:33:1d updated successfully Min rssi- -10. Max remotes- 8.
+    GatewayGetSkipRemoteStatus:
+      type: string
+      example: Mac d0:cf:5e:f7:33:1d Status Active. Movement interrupt On. Movement interrupt min threshold 2. Min duration (seconds) for each movement interrupt 1.
+    GatewayAddSkipRemote:
+      type: string
+      example: SKIP_REMOTE added. Sensor sample disable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Please enter access_token (taken from login response body)
+externalDocs:
+  description: Find out more about BeeHero
+  url: https://www.beehero.io/

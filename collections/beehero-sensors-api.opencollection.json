@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BeeHero API Documentation Sensors API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sensors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get sensors samples by mac address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/sensors/samples",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a list of mac addresses and begin & end dates, BeeHero will return a list of samples (temperature, humidity, bees' in-count and out-count etc) for sensors with these mac addresses between these dates"
+        },
+        {
+          "info": {
+            "name": "Get sensors connected to a gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://backend.beehero.io/external/sensors/samples_connected",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a gateway mac addresses, BeeHero will return a list of sensors that are connected to the gateway"
+        },
+        {
+          "info": {
+            "name": "Update sensor name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://backend.beehero.io/external/sensors/update_sensor_name",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Given a sensor mac address and a name, BeeHero will update the sensor's name"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
