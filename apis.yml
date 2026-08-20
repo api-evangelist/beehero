@@ -20,6 +20,18 @@ created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
+- Agriculture
+- AgTech
+- Pollination
+- beekeeping
+- Precision Agriculture
+- IoT
+- Sensors
+- Environmental Data
+- MCP
+- agent-native
+tags_raw:
+- Company
 - agriculture
 - agtech
 - pollination
@@ -61,6 +73,8 @@ apis:
   humanURL: https://docs.beehero.io/
   baseURL: https://backend.beehero.io/external
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
