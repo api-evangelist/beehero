@@ -11,6 +11,18 @@ description: >-
   documented with Swagger UI at docs.beehero.io — for sensor samples, in-hive audio samples and gateway
   configuration, and publishes an official BeeHero MCP server to npm for agent access to its platform
   entities (groups, farms, orchards, yards, gateways, sensors, inspections, experiments).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/66e1eedeb9c7b4bebe0ed8f2/66e1fc3a9a94b85ef4c2e341_BeeHero_Logo_Horizontal_Black.png
 url: https://raw.githubusercontent.com/api-evangelist/beehero/refs/heads/main/apis.yml
 x-type: company
