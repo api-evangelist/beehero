@@ -6,9 +6,7 @@ info:
     READ ME:
 
 
-    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.
-
-    '
+    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.'
   version: 1.0.0
   title: BeeHero API Documentation Gateways API
   contact:
@@ -210,9 +208,7 @@ paths:
         - movement_interrupt_duration - Min duration (seconds) for each movement interrupt.
 
 
-        - movement_interrupt - turn "movement interrupt" on and off (boolean)
-
-        '
+        - movement_interrupt - turn "movement interrupt" on and off (boolean)'
       operationId: movement_interrupt_gateway_config
       requestBody:
         content:
@@ -257,7 +253,25 @@ paths:
       tags:
       - Gateways
       summary: Configure gateway configuration by mac address
-      description: "Given a gateway mac_address, min_rssi and max_remotes, BeeHero will update the gateway config.\n\n- min_rssi - Minimum reception distance.\n\n    The recommended range of BeeHero is between -60 to -80. \n\n    The possible range is between -10 to -100.\n\n- max_remotes - The maximum number of remotes connected to the gateway.\n\n    The recommended number of BeeHero is 8.\n\n    The possible range is between 1 to 12.\n"
+      description: 'Given a gateway mac_address, min_rssi and max_remotes, BeeHero will update the gateway config.
+
+
+        - min_rssi - Minimum reception distance.
+
+
+        The recommended range of BeeHero is between -60 to -80.
+
+
+        The possible range is between -10 to -100.
+
+
+        - max_remotes - The maximum number of remotes connected to the gateway.
+
+
+        The recommended number of BeeHero is 8.
+
+
+        The possible range is between 1 to 12.'
       operationId: rssi_configuration
       requestBody:
         content:
@@ -295,9 +309,6 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    GatewayMovementInterrupt:
-      type: string
-      example: Movement interrupt updated successfully.
     Gateway:
       type: array
       items:
@@ -333,6 +344,9 @@ components:
           message:
             type: string
             description: Message on finding a Mac
+    GatewayGetSkipRemoteStatus:
+      type: string
+      example: Mac d0:cf:5e:f7:33:1d Status Active. Movement interrupt On. Movement interrupt min threshold 2. Min duration (seconds) for each movement interrupt 1.
     GatewayGetMac:
       type: object
       properties:
@@ -345,9 +359,9 @@ components:
     GatewayRssiConfiguration:
       type: string
       example: Mac d0:cf:5e:f7:33:1d updated successfully Min rssi- -10. Max remotes- 8.
-    GatewayGetSkipRemoteStatus:
+    GatewayMovementInterrupt:
       type: string
-      example: Mac d0:cf:5e:f7:33:1d Status Active. Movement interrupt On. Movement interrupt min threshold 2. Min duration (seconds) for each movement interrupt 1.
+      example: Movement interrupt updated successfully.
     GatewayAddSkipRemote:
       type: string
       example: SKIP_REMOTE added. Sensor sample disable.

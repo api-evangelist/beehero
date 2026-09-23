@@ -6,9 +6,7 @@ info:
     READ ME:
 
 
-    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.
-
-    '
+    To use BeeHero API, it is necessary to first log in and then copy and enter the given `access_token` into Authorize button.'
   version: 1.0.0
   title: BeeHero API Documentation Sensors API
   contact:
