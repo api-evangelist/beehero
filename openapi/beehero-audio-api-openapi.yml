@@ -64,6 +64,15 @@ paths:
       - bearerAuth: []
 components:
   schemas:
+    AudioObject:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Audio file key
+        url:
+          type: string
+          description: Url to download audio file
     Audio:
       type: array
       items:
@@ -76,15 +85,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/AudioObject'
-    AudioObject:
-      type: object
-      properties:
-        key:
-          type: string
-          description: Audio file key
-        url:
-          type: string
-          description: Url to download audio file
   securitySchemes:
     bearerAuth:
       type: http
