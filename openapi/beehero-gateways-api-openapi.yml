@@ -309,15 +309,6 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    GatewayGetSkipRemoteStatus:
-      type: string
-      example: Mac d0:cf:5e:f7:33:1d Status Active. Movement interrupt On. Movement interrupt min threshold 2. Min duration (seconds) for each movement interrupt 1.
-    GatewayRemoveSkipRemote:
-      type: string
-      example: Successful activation.
-    GatewayRssiConfiguration:
-      type: string
-      example: Mac d0:cf:5e:f7:33:1d updated successfully Min rssi- -10. Max remotes- 8.
     Gateway:
       type: array
       items:
@@ -353,18 +344,27 @@ components:
           message:
             type: string
             description: Message on finding a Mac
-    GatewayMovementInterrupt:
-      type: string
-      example: Movement interrupt updated successfully.
-    GatewayAddSkipRemote:
-      type: string
-      example: SKIP_REMOTE added. Sensor sample disable.
     GatewayGetMac:
       type: object
       properties:
         gateway_mac_address:
           type: string
           description: Gateway mac address
+    GatewayAddSkipRemote:
+      type: string
+      example: SKIP_REMOTE added. Sensor sample disable.
+    GatewayMovementInterrupt:
+      type: string
+      example: Movement interrupt updated successfully.
+    GatewayGetSkipRemoteStatus:
+      type: string
+      example: Mac d0:cf:5e:f7:33:1d Status Active. Movement interrupt On. Movement interrupt min threshold 2. Min duration (seconds) for each movement interrupt 1.
+    GatewayRssiConfiguration:
+      type: string
+      example: Mac d0:cf:5e:f7:33:1d updated successfully Min rssi- -10. Max remotes- 8.
+    GatewayRemoveSkipRemote:
+      type: string
+      example: Successful activation.
   securitySchemes:
     bearerAuth:
       type: http
