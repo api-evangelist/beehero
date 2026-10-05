@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.beehero.io/swagger.json",
+ "requested_url": "https://docs.beehero.io/swagger.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 21600,
+ "sha256": "7624a2c5f58d49d909f2c0f698e3d8318bf6988e5d60184d4b9690ebbdbeb700",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
