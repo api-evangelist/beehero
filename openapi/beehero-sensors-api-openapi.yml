@@ -178,6 +178,9 @@ components:
           message:
             type: string
             description: Message on finding a Mac
+    SensorsUpdateName:
+      type: string
+      example: Name was successfully changed fron name old to name new name for mac d0:cf:5e:f7:33:1d
     SensorsConnected:
       type: array
       items:
@@ -191,9 +194,6 @@ components:
             items:
               type: string
               description: Sensors mac addresses connected to the gateway
-    SensorsUpdateName:
-      type: string
-      example: Name was successfully changed fron name old to name new name for mac d0:cf:5e:f7:33:1d
   securitySchemes:
     bearerAuth:
       type: http
