@@ -72,3 +72,9 @@ components:
 externalDocs:
   description: Find out more about BeeHero
   url: https://www.beehero.io/
+x-provenance:
+  method: harvested
+  publisher: BeeHero
+  source: https://docs.beehero.io/swagger.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
